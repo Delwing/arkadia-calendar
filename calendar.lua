@@ -34,6 +34,8 @@ kalendarz_imp_delta_dni = {0, 33, 67, 100, 133, 167, 201, 233, 267, 300, 333, 36
 
 kalendarz_ish_delta_dni = {0, 45, 90, 135, 180, 225, 270, 315}
 
+kalendarz_ish_delta_festyn = {5, 50, 95, 140, 185, 230, 275, 320}
+
 kalendarz_imp_now = {14, 39, 64, 89, 114, 139, 164, 189, 214, 239, 264, 289, 314, 339, 364, 389}
 
 kalendarz_imp_zachod = {17, 18, 18, 19, 20, 21, 21, 22, 21, 20, 20, 19, 18, 17, 17, 16}
@@ -166,6 +168,13 @@ kalendarz_pm = {
   "w nocy",
 } 
   
+function convert_time(time)
+  local hours = math.floor(time/3600)
+  remaining = time % 3600
+  local minutes = math.floor(remaining/60)
+  answer = hours..' godzin '..minutes..' minut'
+  return answer
+end
 
 function predykcje_astro_imp()
 
@@ -289,16 +298,16 @@ echo("\n")
 
 echo("Najblizszy now     : ")
 print(os.date("%c", czas+now_delta))
-echo(" (czyli za okolo " .. now_delta/3600 .. " godzin czasu RL)\n")
+echo(" (czyli za okolo " .. convert_time(now_delta) .. " czasu RL)\n")
 echo("Tego dnia zachod slonca o godzinie " .. zachod .. " czasu arkadyjskiego\n\n")
 
 echo("Najblizsza pelnia  : ")
 print(os.date("%c", czas+pelnia_delta))
-echo(" (czyli za okolo " .. pelnia_delta/3600 .. " godzin czasu RL)\n\n")
+echo(" (czyli za okolo " .. convert_time(pelnia_delta) .. " czasu RL)\n\n")
 
 echo("Najblizsze swieto  : ")
 print(os.date("%c", czas+swieto_delta))
-echo(" (czyli za okolo " .. swieto_delta/3600 .. " godzin czasu RL)\n")
+echo(" (czyli za okolo " .. convert_time(swieto_delta) .. " czasu RL)\n")
 echo("Swieto to : " .. swieto_nazwa .. "\n\n")
 
 echo("==============================================================\n\n")
@@ -307,9 +316,9 @@ end
 
 function predykcje_astro_ish()
 
-local czas, delta, pelnia_delta, swieto_delta
+local czas, delta, pelnia_delta, swieto_delta, festyn_delta
 local dzien, miesiac, godzina, am_pm
-local pelnia, swieto, swieto_nazwa
+local pelnia, swieto, swieto_nazwa, festyn
 
 for i=1,8,1 do
   if string.find(kalendarz_astro, kalendarz_ish_miesiac_txt[i]) then
@@ -400,6 +409,21 @@ else
   swieto_delta = (360+kalendarz_ish_swieta[1]-dzien)*2880-delta
 end
 
+for i=1,8,1 do
+  if dzien <= (kalendarz_ish_delta_festyn[i]+2) then
+    festyn=kalendarz_ish_delta_festyn[i]
+    break
+  else
+    festyn=kalendarz_ish_delta_festyn[1]
+  end
+end
+
+if festyn >= dzien then 
+  festyn_delta = (festyn-dzien)*2880-delta
+else
+  festyn_delta = (360+kalendarz_ish_delta_festyn[1]-dzien)*2880-delta
+end
+
 echo("Predykcje wydarzen astronomicznych wg kalendarza Starszego Ludu:\n")
 echo("================================================================\n\n")
 
@@ -409,12 +433,21 @@ echo("\n")
 
 echo("Najblizsza pelnia  : ")
 print(os.date("%c", czas+pelnia_delta))
-echo(" (czyli za okolo " .. pelnia_delta/3600 .. " godzin czasu RL)\n\n")
+echo(" (czyli za okolo " .. convert_time(pelnia_delta) .. " czasu RL)\n\n")
 
 echo("Najblizsze swieto  : ")
 print(os.date("%c", czas+swieto_delta))
-echo(" (czyli za okolo " .. swieto_delta/3600 .. " godzin czasu RL)\n")
+echo(" (czyli za okolo " .. convert_time(swieto_delta) .. " czasu RL)\n")
 echo("Swieto to : " .. swieto_nazwa .. "\n\n")
+
+echo("Festyn w Eysenlaan\n")
+echo("Rozpoczecie festynu  : ")
+print(os.date("%c", czas+festyn_delta))
+echo(" (czyli za okolo " .. convert_time(festyn_delta) .. " czasu RL)\n")
+echo("Zakonczenie festynu  : ")
+print(os.date("%c", czas+festyn_delta+5760))
+echo(" (czyli za okolo " .. convert_time(festyn_delta+5760) .. " czasu RL)\n")
+
 
 echo("================================================================\n\n")
 
