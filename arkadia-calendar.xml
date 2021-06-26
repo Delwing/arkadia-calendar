@@ -4,7 +4,9 @@
 	<AliasPackage>
 		<Alias isActive="yes" isFolder="no">
 			<name>kalendarz</name>
-			<script>predykcje_astro()</script>
+			<script>send("czas")
+send("ob niebo")
+tempTimer(0.5, [[ predykcje_astro() ]])</script>
 			<command></command>
 			<packageName></packageName>
 			<regex>^/kal$</regex>
