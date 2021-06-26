@@ -11,8 +11,8 @@ Autor: Monolith
 
 ## Użytkowanie
 
-Po inicjalizacji za pomocą komendy `czas`, można użyć komendy
+Komenda
 
 ```/kal```
 
-żeby wyświetlić dane dotyczące najbliższej pełni, nowiu i tym podobnych.
+wyświetla dane dotyczące najbliższej pełni, nowiu i tym podobnych.
