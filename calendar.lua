@@ -168,6 +168,7 @@ kalendarz_pm = {
   "wieczorem",
   "przed polnoca",
   "w nocy",
+  "w przyblizeniu poludnie",
 } 
   
 function convert_time(time)
@@ -193,6 +194,7 @@ local czas, delta, now_delta, pelnia_delta, swieto_delta
 local dzien, miesiac, godzina, am_pm, zachod
 local now, pelnia, swieto, swieto_nazwa
 local am_pm_fix = 0
+local poludnie_fix = 0
 
 miesiac = 3
 for i=1,12,1 do
@@ -213,10 +215,15 @@ if string.find(kalendarz_astro, kalendarz_am[5]) then
   godzina = 0
 end
 
-for i=1,4,1 do
+for i=1,5,1 do
   if string.find(kalendarz_astro, kalendarz_pm[i]) then
     am_pm = 1
     if i == 4 then am_pm_fix = 1 end
+    if i == 5 then
+      poludnie_fix = 1
+      godzina = 12
+      break
+    end
     break
   end
 end
@@ -234,6 +241,7 @@ if am_pm == 0 then delta = godzina*120 end
 if am_pm == 1 then delta = (godzina+12)*120 end
 
 if am_pm == 1 and godzina == 12 then delta = 0 end
+if am_pm == 1 and godzina == 12 and poludnie_fix == 1 then delta = (12*120) end
 if am_pm == 1 and godzina == 1 and am_pm_fix == 1 then delta = (1*120) end
 if am_pm == 1 and godzina == 2 and am_pm_fix == 1 then delta = (2*120) end
 if am_pm == 1 and godzina == 3 and am_pm_fix == 1 then delta = (3*120) end
@@ -336,6 +344,7 @@ local czas, delta, pelnia_delta, swieto_delta, festyn_delta
 local dzien, miesiac, godzina, am_pm
 local pelnia, swieto, swieto_nazwa, festyn
 local am_pm_fix = 0
+local poludnie_fix = 0
 
 for i=1,8,1 do
   if string.find(kalendarz_astro, kalendarz_ish_miesiac_txt[i]) then
@@ -360,10 +369,15 @@ if string.find(kalendarz_astro, kalendarz_am[5]) then
   godzina = 0
 end
 
-for i=1,4,1 do
+for i=1,5,1 do
   if string.find(kalendarz_astro, kalendarz_pm[i]) then
     am_pm = 1
     if i == 4 then am_pm_fix = 1 end
+    if i == 5 then
+      poludnie_fix = 1
+      godzina = 12
+      break
+    end    
     break
   end
 end
@@ -381,6 +395,7 @@ if am_pm == 0 then delta = godzina*120 end
 if am_pm == 1 then delta = (godzina+12)*120 end
 
 if am_pm == 1 and godzina == 12 then delta = 0 end
+if am_pm == 1 and godzina == 12 and poludnie_fix == 1 then delta = (12*120) end
 if am_pm == 1 and godzina == 1 and am_pm_fix == 1 then delta = (1*120) end
 if am_pm == 1 and godzina == 2 and am_pm_fix == 1 then delta = (2*120) end
 if am_pm == 1 and godzina == 3 and am_pm_fix == 1 then delta = (3*120) end
