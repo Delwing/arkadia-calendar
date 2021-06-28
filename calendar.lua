@@ -160,6 +160,7 @@ kalendarz_am = {
   "przed poludniem",
   "rano",
   "w poludnie",
+  "w przyblizeniu polnoc",
 }
 
 kalendarz_pm = {
@@ -170,10 +171,19 @@ kalendarz_pm = {
 } 
   
 function convert_time(time)
+  
+  local znak = ''
+  
+  if time < 0 then
+    znak = '-'
+  end
+  
+  time = math.abs(time)
+  
   local hours = math.floor(time/3600)
-  remaining = time % 3600
+  local remaining = time % 3600
   local minutes = math.floor(remaining/60)
-  answer = hours..' godzin '..minutes..' minut'
+  local answer = znak.. hours..' godzin '..minutes..' minut'
   return answer
 end
 
@@ -191,11 +201,15 @@ for i=1,12,1 do
   end
 end
 
-for i=1,4,1 do
+for i=1,5,1 do
   if string.find(kalendarz_astro, kalendarz_am[i]) then
     am_pm = 0
     break
   end
+end
+
+if string.find(kalendarz_astro, kalendarz_am[5]) then
+  godzina = 0
 end
 
 for i=1,4,1 do
@@ -325,14 +339,23 @@ for i=1,8,1 do
   if string.find(kalendarz_astro, kalendarz_ish_miesiac_txt[i]) then
     miesiac = i
     break
+  else
+    if string.find(kalendarz_astro, kalendarz_ish_swieta_nazwy[i]) then
+      miesiac = i
+      break
+    end
   end
 end
 
-for i=1,4,1 do
+for i=1,5,1 do
   if string.find(kalendarz_astro, kalendarz_am[i]) then
     am_pm = 0
     break
   end
+end
+
+if string.find(kalendarz_astro, kalendarz_am[5]) then
+  godzina = 0
 end
 
 for i=1,4,1 do
