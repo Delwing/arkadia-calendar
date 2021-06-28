@@ -232,11 +232,6 @@ if am_pm == 0 then delta = godzina*120 end
 if am_pm == 1 then delta = (godzina+12)*120 end
 
 if am_pm == 1 and godzina == 12 then delta = 0 end
-if am_pm == 1 and godzina == 1 then delta = (1*120) end
-if am_pm == 1 and godzina == 2 then delta = (2*120) end
-if am_pm == 1 and godzina == 3 then delta = (3*120) end
-if am_pm == 1 and godzina == 4 then delta = (4*120) end
-
 
 for i=33,1,-1 do
   if string.find(kalendarz_astro, kalendarz_imp_dni_liczebniki[i]) then
@@ -374,16 +369,10 @@ end
 
 delta = 0
 
-
 if am_pm == 0 then delta = godzina*120 end
 if am_pm == 1 then delta = (godzina+12)*120 end
 
 if am_pm == 1 and godzina == 12 then delta = 0 end
-if am_pm == 1 and godzina == 1 then delta = (1*120) end
-if am_pm == 1 and godzina == 2 then delta = (2*120) end
-if am_pm == 1 and godzina == 3 then delta = (3*120) end
-if am_pm == 1 and godzina == 4 then delta = (4*120) end
-
 
 for i=45,1,-1 do
   if string.find(kalendarz_astro, kalendarz_ish_dni_liczebniki[i]) then
