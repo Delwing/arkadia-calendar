@@ -451,10 +451,10 @@ end
 
 for i=1,8,1 do
   if dzien <= (kalendarz_ish_delta_festyn[i]+2) then
-    festyn=kalendarz_ish_delta_festyn[i]
+    festyn = kalendarz_ish_delta_festyn[i]
     break
   else
-    festyn=kalendarz_ish_delta_festyn[1]
+    festyn = kalendarz_ish_delta_festyn[1]
   end
 end
 
@@ -462,6 +462,10 @@ if festyn >= dzien then
   festyn_delta = (festyn-dzien)*2880-delta
 else
   festyn_delta = (360+kalendarz_ish_delta_festyn[1]-dzien)*2880-delta
+end
+
+if dzien <= (festyn+2) then
+  festyn_delta = (festyn-dzien)*2880-delta
 end
 
 echo("Predykcje wydarzen astronomicznych wg kalendarza Starszego Ludu:\n")
