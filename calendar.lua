@@ -469,8 +469,8 @@ echo("Rozpoczecie festynu  : ")
 print(os.date("%c", czas+festyn_delta))
 echo(" (czyli za okolo " .. convert_time(festyn_delta) .. " czasu RL)\n")
 echo("Zakonczenie festynu  : ")
-print(os.date("%c", czas+festyn_delta+5760))
-echo(" (czyli za okolo " .. convert_time(festyn_delta+5760) .. " czasu RL)\n")
+print(os.date("%c", czas+festyn_delta+8640))
+echo(" (czyli za okolo " .. convert_time(festyn_delta+8640) .. " czasu RL)\n")
 
 
 echo("================================================================\n\n")
