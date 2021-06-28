@@ -216,6 +216,7 @@ end
 for i=1,4,1 do
   if string.find(kalendarz_astro, kalendarz_pm[i]) then
     am_pm = 1
+    if i == 4 then am_pm_fix = 1 end
     break
   end
 end
