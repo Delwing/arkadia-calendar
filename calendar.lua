@@ -34,7 +34,7 @@ kalendarz_imp_delta_dni = {0, 33, 67, 100, 133, 167, 201, 233, 267, 300, 333, 36
 
 kalendarz_ish_delta_dni = {0, 45, 90, 135, 180, 225, 270, 315}
 
-kalendarz_ish_delta_festyn = {5, 50, 95, 140, 185, 230, 275, 320}
+kalendarz_ish_delta_festyn = {6, 51, 96, 141, 186, 231, 276, 321}
 
 kalendarz_imp_now = {14, 39, 64, 89, 114, 139, 164, 189, 214, 239, 264, 289, 314, 339, 364, 389}
 
