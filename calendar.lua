@@ -34,7 +34,7 @@ kalendarz_imp_delta_dni = {0, 33, 67, 100, 133, 167, 201, 233, 267, 300, 333, 36
 
 kalendarz_ish_delta_dni = {0, 45, 90, 135, 180, 225, 270, 315}
 
-kalendarz_ish_delta_festyn = {6, 51, 96, 141, 186, 231, 276, 321}
+kalendarz_ish_festyn = {6, 51, 96, 141, 186, 231, 276, 321}
 
 kalendarz_imp_now = {14, 39, 64, 89, 114, 139, 164, 189, 214, 239, 264, 289, 314, 339, 364, 389}
 
@@ -42,9 +42,7 @@ kalendarz_imp_zachod = {17, 18, 18, 19, 20, 21, 21, 22, 21, 20, 20, 19, 18, 17, 
 
 kalendarz_imp_pelnia = {26, 51, 76, 102, 126, 151, 176, 227, 251, 276, 326, 351, 376}
 
--- tweak tunning Ishtar
---kalendarz_ish_pelnia = {2, 26, 51, 76, 101, 126, 151, 176, 201, 226, 251, 276, 301, 326, 351}
-kalendarz_ish_pelnia = {2, 32, 57, 82, 107, 132, 157, 182, 207, 232, 257, 282, 307, 332, 357}
+kalendarz_ish_pelnia = {1, 26, 51, 76, 101, 126, 151, 176, 201, 226, 251, 276, 300, 326, 351}
 
 kalendarz_imp_swieta = {1, 67, 167, 201, 267, 367}
 
@@ -450,18 +448,18 @@ else
 end
 
 for i=1,8,1 do
-  if dzien <= (kalendarz_ish_delta_festyn[i]+2) then
-    festyn = kalendarz_ish_delta_festyn[i]
+  if dzien <= (kalendarz_ish_festyn[i]+2) then
+    festyn = kalendarz_ish_festyn[i]
     break
   else
-    festyn = kalendarz_ish_delta_festyn[1]
+    festyn = kalendarz_ish_festyn[1]
   end
 end
 
 if festyn >= dzien then 
   festyn_delta = (festyn-dzien)*2880-delta
 else
-  festyn_delta = (360+kalendarz_ish_delta_festyn[1]-dzien)*2880-delta
+  festyn_delta = (360+kalendarz_ish_festyn[1]-dzien)*2880-delta
 end
 
 if dzien <= (festyn+2) then
@@ -475,9 +473,13 @@ echo("Aktualny czas      : ")
 print(os.date("%c", czas))
 echo("\n")
 
-echo("Najblizsza pelnia  : ")
+echo("Poczatek najblizszej pelni  : ")
 print(os.date("%c", czas+pelnia_delta))
 echo(" (czyli za okolo " .. convert_time(pelnia_delta) .. " czasu RL)\n\n")
+
+echo("Koniec najblizszej pelni  : ")
+print(os.date("%c", czas+pelnia_delta+5760))
+echo(" (czyli za okolo " .. convert_time(pelnia_delta+5760) .. " czasu RL)\n\n")
 
 echo("Najblizsze swieto  : ")
 print(os.date("%c", czas+swieto_delta))
@@ -499,10 +501,16 @@ end
 
 function predykcje_astro()
 
-if kalendarz_imp_ish == 0 then
-  predykcje_astro_ish()
+
+
+if kalendarz_astro then
+  if kalendarz_imp_ish == 0 then
+    predykcje_astro_ish()
+  else
+    predykcje_astro_imp()
+  end
 else
-  predykcje_astro_imp()
+  echo("Wyjdz na zewnatrz i sprawdz czas...\n")
 end
 
 end
